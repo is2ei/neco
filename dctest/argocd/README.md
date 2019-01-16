@@ -87,6 +87,12 @@ Context '10.69.0.5:30086' updated
     cybozu@boot-0:~$ argocd app sync guestbook
     ```
 
+4. To sync manifests automatically, run:
+
+    ```console
+    cybozu@boot-0:~$ argocd app set guestbook --sync-policy automated
+    ```
+
 ## 6. Setup notification for Slack
 
 **TBD**
