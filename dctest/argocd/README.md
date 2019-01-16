@@ -3,8 +3,7 @@ Setup Argo CD
 
 This procedure is based on https://github.com/argoproj/argo-cd/blob/master/docs/getting_started.md
 
-0. Setup dctest
----------------
+## 0. Setup dctest
 
 ```console
 @host-vm
@@ -15,8 +14,7 @@ make test-light
 # Wait for 30 mins...
 ```
 
-1. Install Argo CD
-------------------
+## 1. Install Argo CD
 
 ```console
 @boot-0 
@@ -24,27 +22,23 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-2. Install `argocd` cli
------------------------
+## 2. Install `argocd` cli
 
 ```console
 @boot-0 
 curl -LO https://github.com/argoproj/argo-cd/releases/download/v0.11.0/argocd-linux-amd64 && sudo mv argocd-linux-amd64 /usr/local/bin/argocd && sudo chmod +x /usr/local/bin/argocd
 ```
 
-3. Access the Argo CD API server
---------------------------------
+## 3. Access the Argo CD API server
 
-### Service Type NodePort
+Change type of argocd-server to `NodePort`.
 
 ```console
 @boot-0 
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
 ```
 
-4. Login using the CLI
-----------------------
-
+## 4. Login using the CLI
 
 ```console
 @boot-0
