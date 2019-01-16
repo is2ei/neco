@@ -16,13 +16,24 @@ make test-light
 
 ## 1. Install Argo CD
 
+You can see difference from original manifestby:
+
 ```console
-@boot-0 
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+diff -u <(curl -sL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml) install.yaml
 ```
 
-## 2. Install `argocd` cli
+Deploy Argo CD using `install.yaml`.
+
+```console
+@host-vm
+./dcscp dctest/argocd/install.yaml boot-0:
+
+@boot-0 
+kubectl create namespace argocd
+kubectl apply -f install.yaml
+```
+
+## 2. Install `argocd` CLI
 
 ```console
 @boot-0 
@@ -60,3 +71,22 @@ $ argocd account update-password
 Password updated
 Context '10.69.0.5:30086' updated
 ```
+
+## 5. Setup example app to deployment on your CD
+
+1. Fork https://github.com/argoproj/argocd-example-apps
+2. Create application in Argo CD.
+
+    ```console
+    cybozu@boot-0:~$ argocd app create guestbook --repo https://github.com/mitsutaka/argocd-example-apps --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace default
+    ```
+
+3. If you need to deploy manually, run:
+
+    ```console
+    cybozu@boot-0:~$ argocd app sync guestbook
+    ```
+
+## 6. Setup notification for Slack
+
+**TBD**
