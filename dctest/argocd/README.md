@@ -12,6 +12,7 @@ make setup
 make placemat
 make test-light
 # Wait for 30 mins...
+# Make sure K8s cluster is avaialble by `kubectl get nodes`
 ```
 
 ## 1. Install Argo CD
@@ -26,11 +27,11 @@ Deploy Argo CD using `install.yaml`.
 
 ```console
 @host-vm
-./dcscp dctest/argocd/install.yaml boot-0:
+./dcscp argocd/install.yaml boot-0:
 
 @boot-0 
 kubectl create namespace argocd
-kubectl apply -f install.yaml
+kubectl apply -n argocd -f install.yaml
 ```
 
 ## 2. Install `argocd` CLI
